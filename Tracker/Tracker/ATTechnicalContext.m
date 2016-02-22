@@ -34,8 +34,10 @@ SOFTWARE.
 #import <UIKit/UIKit.h>
 #if !TARGET_OS_WATCH
 #import <SystemConfiguration/SystemConfiguration.h>
+#if !TARGET_OS_TV
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
+#endif
 #import <sys/utsname.h>
 #else
 #import <WatchKit/WatchKit.h>
@@ -195,7 +197,7 @@ static NSInteger _level2 = 0;
 }
 
 + (NSString *)carrier {
-#if !TARGET_OS_WATCH
+#if !TARGET_OS_WATCH && !TARGET_OS_TV
     CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *provider = networkInfo.subscriberCellularProvider;
     
@@ -226,6 +228,7 @@ static NSInteger _level2 = 0;
     } else if(reachability.currentReachabilityStatus == NotReachable) {
         return ATConnectionTypeOffline;
     } else {
+#if !TARGET_OS_TV
         CTTelephonyNetworkInfo *telephonyInfo = [[CTTelephonyNetworkInfo alloc] init];
         NSString *radioType = telephonyInfo.currentRadioAccessTechnology;
         
@@ -258,6 +261,9 @@ static NSInteger _level2 = 0;
         } else {
             return ATConnectionTypeUnknown;
         }
+#else
+        return ATConnectionTypeUnknown;
+#endif
     }
 #else
     return ATConnectionTypeUnknown;

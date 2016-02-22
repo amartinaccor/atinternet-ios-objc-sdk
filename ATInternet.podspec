@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/at-internet/atinternet-ios-objc-sdk.git", :tag => s.version.to_s }
 
   s.ios.deployment_target = '7.0'
-  # s.tvos.deployment_target = '9.0'
+  s.tvos.deployment_target = '9.0'
 
   s.requires_arc = true
 
@@ -32,6 +32,7 @@ Pod::Spec.new do |s|
   s.subspec 'Res' do |ss|
     ss.watchos.deployment_target = '2.0'
     ss.ios.deployment_target = '7.0'
+    ss.tvos.deployment_target = '9.0'
     ss.resource_bundle = { 'ATAssets' => [ 
           "Tracker/Tracker/*.{xcdatamodeld,png,json}",
           "Tracker/Tracker/ATDefaultConfiguration.plist"
