@@ -21,7 +21,6 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/at-internet/atinternet-ios-objc-sdk.git", :tag => s.version.to_s }
 
   s.ios.deployment_target = '7.0'
-  s.tvos.deployment_target = '9.0'
 
   s.requires_arc = true
 
@@ -44,6 +43,17 @@ Pod::Spec.new do |s|
         "CoreFoundation",
         "UIKit",
         "CoreTelephony",
+        "SystemConfiguration" ]
+
+    ss.source_files = 'Tracker/Tracker/*.{h,m}'
+    ss.dependency 'ATInternet/Res'
+  end
+
+  s.subspec 'tvOS' do |ss|
+    ss.tvos.deployment_target = '9.0'
+    ss.frameworks = [ "CoreData",
+        "CoreFoundation",
+        "UIKit",
         "SystemConfiguration" ]
 
     ss.source_files = 'Tracker/Tracker/*.{h,m}'
