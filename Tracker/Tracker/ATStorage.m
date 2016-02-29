@@ -67,7 +67,11 @@ NSString* entityName = @"ATStoredOfflineHit";
 
 - (NSURL *)databaseDirectory {
     if(!_databaseDirectory) {
+#if !TARGET_OS_TV
         NSArray* urls = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains: NSUserDomainMask];
+#else
+        NSArray* urls = [[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains: NSUserDomainMask];
+#endif
         
         _databaseDirectory = urls[[urls count] - 1];
     }
